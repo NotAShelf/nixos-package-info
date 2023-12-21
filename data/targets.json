@@ -1,0 +1,8 @@
+[
+  {
+    "type": "nixpkgs",
+    "branch": "nixos-unstable",
+    "channel": "unstable",
+    "git_ref": "72ff6b5fcf58e093b5b53d4d7508df860c4f2528"
+  }
+]

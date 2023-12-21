@@ -1,0 +1,5 @@
+# ignore test data
+*.json
+
+# ignore built binary
+nixos-package-info

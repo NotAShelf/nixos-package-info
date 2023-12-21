@@ -1,0 +1,36 @@
+name: Update Nixpkgs revision
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *" # daily
+  push:
+    paths:
+      - ".github/workflows/update.yml"
+
+jobs:
+  update-revision:
+    if: github.repository == 'notashelf/nixos-package-info'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GH_TOKEN}}"
+
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Update nixpkgs revision
+        run: nix run .#update-sources data/targets.json
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[CI]: update nixpkgs revision"
+          push_options: "--force"
+          commit_user_name: GitHub Actions

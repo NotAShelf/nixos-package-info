@@ -1,0 +1,437 @@
+[
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "ani-cli",
+    "package_attr_set": "No package set",
+    "package_pname": "ani-cli-v4.7",
+    "package_pversion": "v4.7",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/GPL-3.0-or-later.html",
+        "fullName": "GNU General Public License v3.0 or later"
+      }
+    ],
+    "package_license_set": ["GNU General Public License v3.0 or later"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "A cli tool to browse and play anime",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "cloneit",
+    "package_attr_set": "No package set",
+    "package_pname": "cloneit-0.1.0",
+    "package_pversion": "0.1.0",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/MIT.html",
+        "fullName": "MIT License"
+      }
+    ],
+    "package_license_set": ["MIT License"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "CLI tool to download specific GitHub directories or files",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "foot-transparent",
+    "package_attr_set": "No package set",
+    "package_pname": "foot-1.16.2",
+    "package_pversion": "1.16.2",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out", "terminfo", "themes", "debug"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/MIT.html",
+        "fullName": "MIT License"
+      }
+    ],
+    "package_license_set": ["MIT License"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "A fast, lightweight and minimalistic Wayland terminal emulator",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "headscale-ui",
+    "package_attr_set": "No package set",
+    "package_pname": "headscale-ui-2023.01.30-beta-1",
+    "package_pversion": "2023.01.30-beta-1",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/BSD-3-Clause.html",
+        "fullName": "BSD 3-clause \"New\" or \"Revised\" License"
+      }
+    ],
+    "package_license_set": ["BSD 3-clause \"New\" or \"Revised\" License"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "A web frontend for the headscale Tailscale-compatible coordination server",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "mastodon-bird-ui",
+    "package_attr_set": "No package set",
+    "package_pname": "mastodon-4.2.3",
+    "package_pversion": "4.2.3",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/AGPL-3.0-or-later.html",
+        "fullName": "GNU Affero General Public License v3.0 or later"
+      }
+    ],
+    "package_license_set": ["GNU Affero General Public License v3.0 or later"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "Self-hosted, globally interconnected microblogging software based on ActivityPub",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "mov-cli",
+    "package_attr_set": "No package set",
+    "package_pname": "python3.11-mov-cli-1.5.7",
+    "package_pversion": "1.5.7",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out", "dist"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/GPL-3.0-only.html",
+        "fullName": "GNU General Public License v3.0 only"
+      }
+    ],
+    "package_license_set": ["GNU General Public License v3.0 only"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "A cli tool to browse and watch movies",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "rat",
+    "package_attr_set": "No package set",
+    "package_pname": "rat-1.1",
+    "package_pversion": "1.1",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [],
+    "package_license_set": [],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": null,
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "reposilite-bin",
+    "package_attr_set": "No package set",
+    "package_pname": "reposilite-bin-3.4.10",
+    "package_pversion": "3.4.10",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/Apache-2.0.html",
+        "fullName": "Apache License 2.0"
+      }
+    ],
+    "package_license_set": ["Apache License 2.0"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "A lightweight repository manager for Maven artifacts",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "rofi-calc-wayland",
+    "package_attr_set": "No package set",
+    "package_pname": "rofi-calc-wayland-v2.2.0",
+    "package_pversion": "v2.2.0",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/MIT.html",
+        "fullName": "MIT License"
+      }
+    ],
+    "package_license_set": ["MIT License"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "Do live calculations in rofi!",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  },
+  {
+    "flake_description": "A personal package overlay",
+    "flake_resolved": {
+      "type": "github",
+      "owner": "notashelf",
+      "repo": "nyxpkgs"
+    },
+    "flake_name": "nyxpkgs",
+    "revision": "9cd3de3cc532ef825f519d48532d173a1e13b197",
+    "flake_source": {
+      "type": "git",
+      "url": "github:notashelf/nyxpkgs"
+    },
+    "type": "package",
+    "package_attr_name": "rofi-emoji-wayland",
+    "package_attr_set": "No package set",
+    "package_pname": "rofi-emoji-wayland-v3.2.0",
+    "package_pversion": "v3.2.0",
+    "package_platforms": ["x86_64-linux", "aarch64-linux"],
+    "package_outputs": ["out"],
+    "package_default_output": "out",
+    "package_programs": [],
+    "package_license": [
+      {
+        "url": "https://spdx.org/licenses/MIT.html",
+        "fullName": "MIT License"
+      }
+    ],
+    "package_license_set": ["MIT License"],
+    "package_maintainers": [
+      {
+        "name": null,
+        "github": "Maintainer Unknown",
+        "email": null
+      }
+    ],
+    "package_maintainers_set": [],
+    "package_description": "An emoji selector plugin for Rofi",
+    "package_longDescription": null,
+    "package_hydra": null,
+    "package_system": "",
+    "package_homepage": [],
+    "package_position": null
+  }
+]
