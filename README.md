@@ -12,7 +12,7 @@ the formatting of output files, and parsing is left entirely to the user's discr
 
 ### Example Data
 
-This is an example package field, generated without the `--full` command.
+This is an example package field, generated without the `--full` flag and formatted with `jq` to be human readable.
 
 ```json
 {
@@ -22,7 +22,23 @@ This is an example package field, generated without the `--full` command.
 }
 ```
 
-The raw output can be parsed with `jq` to be more human-readable.
+With the `nixos-package-info` tool we extract only the relevant sections. Below is an example with the `--full` flag for extended
+information.
+
+```json
+{
+  "package_description": "Integration Services for running NixOS under HyperV",
+  "package_homepage": [
+    "https://kernel.org"
+  ],
+  "package_longDescription": "<rendered-html><p>This packages contains the daemons that are used by the Hyper-V\nhypervisor on the host.</p>\n<p>Microsoft calls their guest ag
+ents “Integration Services” which is\nwhy we use that name here.</p>\n</rendered-html>",
+  "package_name": "linuxKernel.packages.linux_zen.hyperv-daemons",
+  "package_version": "6.6.7"
+},
+```
+
+Once again, this is a formatted example (aside from the html tags in longDescription, those are not our doing) with the help of `jq`.
 
 ## 📦 Packages
 
@@ -35,7 +51,7 @@ tool to generate raw Nixpkgs data.
 
 #### Usage
 
-```bash
+```console
 nix run .#update-sources data/targets.json
 ```
 
