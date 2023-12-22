@@ -2,7 +2,6 @@ name: Publish Database Releases
 
 on:
   workflow_dispatch:
-  workflow_call:
   schedule:
     - cron: "0 1 * * *" # everyday at 1AM
 
@@ -17,10 +16,19 @@ jobs:
       contents: write
 
     steps:
-      - name: Update Nixpkgs Revision
-        uses: ./.github/workflows/prelude.yml
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          command: "nix run .#update-sources data/targets.json"
+          token: "${{ secrets.GH_TOKEN }}"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Update Nixpkgs Revision
+        run: "nix run .#update-sources data/targets.json"
 
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -39,15 +47,22 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout & Install Nix
-        uses: ./.github/workflows/prelude.yml
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GH_TOKEN }}"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
 
       # TODO: takes around 7 minutes on a low end device
       # can this be optimized?
       - name: Update raw nixpkgs data
         run: |
-          nix shell github:nixos/nixos-search#flake-info
-          flake-info --json -k Package group ./data/targets.json nixpkgs > nixpkgs-data.json
+          nix run github:nixos/nixos-search#flake-info --json -k Package group ./data/targets.json nixpkgs > nixpkgs-data.json &&
           ls nixpkgs-data.json # make sure the path is actually created
 
       - name: Upload Artifact
@@ -70,10 +85,19 @@ jobs:
         with:
           name: nixpkgs-data.json
 
-      - name: Install Nix & Store nixos-package-info
-        uses: ./.github/workflows/prelude.yml
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          command: "nix build .#nixos-package-info -Lv"
+          token: "${{ secrets.GH_TOKEN }}"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Store nixos-package-info
+        run: "nix build .#nixos-package-info -Lv"
 
       # TODO: the package should be in the store at this point, does this shill pull deps?
       - name: Generate lightweight database
