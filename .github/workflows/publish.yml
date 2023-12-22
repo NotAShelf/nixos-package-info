@@ -2,13 +2,11 @@ name: Publish Database Releases
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["update.yml"]
-    types:
-      - completed
+  schedule:
+    - cron: "0 * * * *" # daily
 
 jobs:
-  update-sources:
+  update-raw-data:
     needs: update-revision
     runs-on: ubuntu-latest
 
@@ -22,6 +20,8 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
+      # TODO: takes around 7 minutes on a low end device
+      # can this be optimized?
       - name: Update raw nixpkgs data
         run: |
           nix shell github:nixos/nixos-search#flake-info
@@ -33,8 +33,8 @@ jobs:
           name: nixpkgs-data.json
           path: nixpkgs-data.json
 
-  publish:
-    needs: update-sources
+  publish-database:
+    needs: update-raw-data
     runs-on: ubuntu-latest
     permissions:
       contents: write
