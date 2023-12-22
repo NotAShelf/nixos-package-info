@@ -2,11 +2,38 @@ name: Publish Database Releases
 
 on:
   workflow_dispatch:
+  workflow_call:
   schedule:
-    - cron: "0 * * * *" # daily
+    - cron: "0 1 * * *" # everyday at 1AM
 
 jobs:
+  # update the revision (git_ref) key in data/targets.json
+  update-revision:
+    name: "Update Nixpkgs Revision"
+    if: github.repository == 'notashelf/nixos-package-info'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Install Nix
+        uses: ./.github/workflows/nix.yml
+        secrets: inherit
+
+      - name: Update nixpkgs revision
+        run: nix run .#update-sources data/targets.json
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[CI]: update nixpkgs revision"
+          push_options: "--force"
+          commit_user_name: GitHub Actions
+
+  # use updated targets.json to generate a raw data dump from nixpkgs flake
   update-raw-data:
+    name: "Update Raw Data"
     needs: update-revision
     runs-on: ubuntu-latest
 
@@ -14,18 +41,17 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Install Nix
+        uses: ./.github/workflows/nix.yml
+        secrets: inherit
 
       # TODO: takes around 7 minutes on a low end device
       # can this be optimized?
       - name: Update raw nixpkgs data
         run: |
           nix shell github:nixos/nixos-search#flake-info
-          flake-info --json -k Package group ./targets.json nixpkgs > nixpkgs-data.json
+          flake-info --json -k Package group ./data/targets.json nixpkgs > nixpkgs-data.json
+          ls nixpkgs-data.json # make sure the path is actually created
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -34,60 +60,35 @@ jobs:
           path: nixpkgs-data.json
 
   publish-database:
+    name: "Publish Package Databases"
     needs: update-raw-data
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
+    steps:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: nixpkgs-data.json
 
-      - name: Swap space report before modification
-        shell: bash
-        run: |
-          echo "Memory and swap:"
-          free -h
-          echo
-          swapon --show
-          echo
+      - name: Install Nix & Store nixos-package-info
+        uses: ./.github/workflows/nix.yml
+        secrets: inherit
+        with:
+          command: "nix build .#nixos-package-info -Lv"
 
-      - name: Set Swap
-        shell: bash
-        run: |
-          export SWAP_FILE=$(swapon --show=NAME | tail -n 1)
-          sudo swapoff $SWAP_FILE
-          sudo rm $SWAP_FILE
-          sudo fallocate -l 10G $SWAP_FILE
-          sudo chmod 600 $SWAP_FILE
-          sudo mkswap $SWAP_FILE
-          sudo swapon $SWAP_FILE
-
-      - name: Swap space report after modification
-        shell: bash
-        run: |
-          echo "Memory and swap:"
-          free -h
-          echo
-          swapon --show
-          echo
-
-      - name: Install nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Build Package
-        run: nix build .#nixos-package-info -Lv
-
+      # TODO: the package should be in the store at this point, does this shill pull deps?
       - name: Generate lightweight database
         run: nix run .#nixos-package-info -- --input data/nixpkgs.json > database.json
 
       - name: Generate full database
         run: nix run .#nixos-package-info -- --full --input data/nixpkgs.json > database-full.json
 
+      # nix probably handles checking checksums for non-imperative downloads
+      # but in case of ad-hoc database management, user might want to manually verify
+      # checksums in their implementation
       - name: Generate checksums
         run: |
           md5sum database.json database-full.json > md5-checksums.txt
@@ -95,7 +96,8 @@ jobs:
           sha512sum database.json database-full.json > sha512-checksums.txt
 
       - name: Get current date
-        id: date
+        id: get-date
+        # output format: 2023-12-22-120000
         run: echo "date=$(date +'%Y-%m-%d-%H%M%S')" >> ${GITHUB_OUTPUT}
 
       - name: Create Release
@@ -104,8 +106,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
-          name: Release ${{ steps.date.outputs.date }}
-          tag_name: ${{ steps.date.outputs.date }}
+          name: Release ${{ steps.date.outputs.get-date }}
+          tag_name: ${{ steps.date.outputs.get-date }}
           files: |
             database.json
             database-full.json

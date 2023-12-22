@@ -1,36 +1,34 @@
-name: Update Nixpkgs revision
+name: Update packages
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *" # daily
-  push:
-    paths:
-      - ".github/workflows/update.yml"
+    - cron: "0 0 * * *" # daily
 
 jobs:
-  update-revision:
-    if: github.repository == 'notashelf/nixos-package-info'
+  update:
+    if: github.repository == 'fufexan/nix-gaming'
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
-          token: "${{ secrets.GH_TOKEN}}"
+          token: ${{ secrets.PAT }}
 
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Update nixpkgs revision
-        run: nix run .#update-sources data/targets.json
-
-      - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: cachix/cachix-action@v12
         with:
-          commit_message: "[CI]: update nixpkgs revision"
+          name: nix-gaming
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - run: nix run nixpkgs#npins update; pkgs/faf-client/update.sh; pkgs/faf-client/update-src.sh; pkgs/osu-lazer-bin/update.sh; pkgs/osu-stable/update.sh; pkgs/wine/update-wine-ge.sh
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update packages"
           push_options: "--force"
-          commit_user_name: GitHub Actions
+
+  build:
+    needs: update
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
