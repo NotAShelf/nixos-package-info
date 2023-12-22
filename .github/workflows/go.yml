@@ -4,8 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: ["main"]
+    paths:
+      - "packages/nixos-package-info/**"
   pull_request:
     branches: ["main"]
+    paths:
+      - "packages/nixos-package-info/**"
 
 jobs:
   build:
@@ -20,4 +24,4 @@ jobs:
           go-version: "1.21"
 
       - name: Build
-        run: cd packages/nixos-package-info && go build
+        run: cd packages/nixos-package-info && go build -v
