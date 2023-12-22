@@ -1,6 +1,6 @@
 name: Checks
 
-on: [push, pull_request, workflow_dispatch]
+on: [push, pull_request, workflow_dispatch, workflow_call]
 
 jobs:
   check:
@@ -10,6 +10,7 @@ jobs:
           - nix flake check --accept-flake-config
           - nix run nixpkgs#alejandra -- -c .
 
-    uses: ./.github/workflows/nix.yml
+    uses: ./.github/workflows/prelude.yml
+    secrets: inherit
     with:
       command: ${{ matrix.command }}

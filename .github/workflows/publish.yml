@@ -17,12 +17,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Install Nix
-        uses: ./.github/workflows/nix.yml
-        secrets: inherit
-
-      - name: Update nixpkgs revision
-        run: nix run .#update-sources data/targets.json
+      - name: Update Nixpkgs Revision
+        uses: ./.github/workflows/prelude.yml
+        with:
+          command: "nix run .#update-sources data/targets.json"
 
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -41,9 +39,8 @@ jobs:
       contents: write
 
     steps:
-      - name: Install Nix
-        uses: ./.github/workflows/nix.yml
-        secrets: inherit
+      - name: Checkout & Install Nix
+        uses: ./.github/workflows/prelude.yml
 
       # TODO: takes around 7 minutes on a low end device
       # can this be optimized?
@@ -74,8 +71,7 @@ jobs:
           name: nixpkgs-data.json
 
       - name: Install Nix & Store nixos-package-info
-        uses: ./.github/workflows/nix.yml
-        secrets: inherit
+        uses: ./.github/workflows/prelude.yml
         with:
           command: "nix build .#nixos-package-info -Lv"
 
@@ -103,8 +99,6 @@ jobs:
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           name: Release ${{ steps.date.outputs.get-date }}
           tag_name: ${{ steps.date.outputs.get-date }}
@@ -112,3 +106,5 @@ jobs:
             database.json
             database-full.json
             *-checksums.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
