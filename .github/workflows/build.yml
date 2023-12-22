@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "packages/nixos-package-info/**"
+      - ".github/workflows/build.yml"
+      - ".github/workflows/go.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "packages/nixos-package-info/**"
+      - ".github/workflows/build.yml"
+      - ".github/workflows/go.yml"
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform:
+          - linux
+          - macos
+
+    uses: ./.github/workflows/go.yml
+    with:
+      path: "packages/nixos-package-info"
+      platform: "${{ matrix.platform }}"
+
+  build-nix:
+    strategy:
+      matrix:
+        platform:
+          - linux
+          - macos
+    uses: ./.github/workflows/prelude.yml
+    with:
+      command: "nix build .#nixos-package-info -Lv"
+      platform: "${{ matrix.platform }}"
+    secrets: inherit

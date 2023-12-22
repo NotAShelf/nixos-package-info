@@ -6,15 +6,20 @@ on:
       command:
         required: false
         type: string
+      platform:
+        default: "ubuntu"
+        required: false
+        type: string
     secrets:
       GH_TOKEN:
-        required: false
+        required: true
 
 jobs:
   nix:
-    runs-on: ubuntu-latest
+    runs-on: "${{ inputs.platform }}-latest"
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           token: "${{ secrets.GH_TOKEN }}"
 
