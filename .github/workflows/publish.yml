@@ -61,9 +61,10 @@ jobs:
       # TODO: takes around 7 minutes on a low end device
       # can this be optimized?
       - name: Update raw nixpkgs data
+        shell: bash
         run: |
-          nix run github:nixos/nixos-search#flake-info --json -k Package group ./data/targets.json nixpkgs > nixpkgs-data.json &&
-          ls nixpkgs-data.json # make sure the path is actually created
+          nix run github:nixos/nixos-search#flake-info -- --json -k Package group ./data/targets.json nixpkgs > nixpkgs-data.json &&
+          if [ -e "nixpkgs-data.json" ]; then echo "Data dump exists."; else echo "Failed to locate data dump" && exit 1 ; fi
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
