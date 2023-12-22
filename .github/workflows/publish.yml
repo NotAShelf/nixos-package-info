@@ -81,15 +81,15 @@ jobs:
       contents: write
 
     steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: nixpkgs-data.json
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
           token: "${{ secrets.GH_TOKEN }}"
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: nixpkgs-data.json
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -100,12 +100,19 @@ jobs:
       - name: Store nixos-package-info
         run: "nix build .#nixos-package-info -Lv"
 
+      - name: Check for nixpkgs data dump
+        id: check-dump
+        shell: bash
+        run: |
+          if [ -e "nixpkgs-data.json" ]; then echo "Data dump exists."; else echo "Failed to locate data dump" && exit 1 ; fi
+
       # TODO: the package should be in the store at this point, does this shill pull deps?
       - name: Generate lightweight database
-        run: nix run .#nixos-package-info -- --input nixpkgs.json > database.json
+        if: steps.check-dump.outcome == 'success'
+        run: nix run .#nixos-package-info -- --input nixpkgs-data.json > database.json
 
       - name: Generate full database
-        run: nix run .#nixos-package-info -- --full --input nixpkgs.json > database-full.json
+        run: nix run .#nixos-package-info -- --full --input nixpkgs-data.json > database-full.json
 
       # nix probably handles checking checksums for non-imperative downloads
       # but in case of ad-hoc database management, user might want to manually verify
@@ -125,8 +132,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: Release ${{ steps.date.outputs.get-date }}
-          tag_name: ${{ steps.date.outputs.get-date }}
+          name: Release ${{ steps.get-date.outputs.date }}
+          tag_name: ${{ steps.get-date.outputs.date }}
           files: |
             database.json
             database-full.json
