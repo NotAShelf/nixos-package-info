@@ -102,10 +102,10 @@ jobs:
 
       # TODO: the package should be in the store at this point, does this shill pull deps?
       - name: Generate lightweight database
-        run: nix run .#nixos-package-info -- --input data/nixpkgs.json > database.json
+        run: nix run .#nixos-package-info -- --input nixpkgs.json > database.json
 
       - name: Generate full database
-        run: nix run .#nixos-package-info -- --full --input data/nixpkgs.json > database-full.json
+        run: nix run .#nixos-package-info -- --full --input nixpkgs.json > database-full.json
 
       # nix probably handles checking checksums for non-imperative downloads
       # but in case of ad-hoc database management, user might want to manually verify
