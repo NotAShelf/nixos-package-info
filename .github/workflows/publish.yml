@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: "${{ secrets.GH_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -50,7 +50,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: "${{ secrets.GH_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -84,7 +84,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: "${{ secrets.GH_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Download Artifact
         uses: actions/download-artifact@v4
@@ -139,4 +139,4 @@ jobs:
             database-full.json
             *-checksums.txt
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
