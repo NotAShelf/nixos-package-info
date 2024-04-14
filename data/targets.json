@@ -3,6 +3,6 @@
     "type": "nixpkgs",
     "branch": "nixos-unstable",
     "channel": "unstable",
-    "git_ref": "cfd6b5fc90b15709b780a5a1619695a88505a176"
+    "git_ref": "6da46d61baddebc5b8e6c6b17df1cd61c30859fc"
   }
 ]
