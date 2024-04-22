@@ -14,7 +14,7 @@ the formatting of output files, and parsing is left entirely to the user's discr
 
 This is an example package field, generated without the `--full` flag and formatted with `jq` to be human readable.
 
-```json
+```jsonc
 {
   "package_description": "A simple terminal UI for both docker and docker-compose",
   "package_name": "lazydocker",
@@ -25,7 +25,7 @@ This is an example package field, generated without the `--full` flag and format
 With the `nixos-package-info` tool we extract only the relevant sections. Below is an example with the `--full` flag for extended
 information.
 
-```json
+```jsonc
 {
   "package_description": "Integration Services for running NixOS under HyperV",
   "package_homepage": [
